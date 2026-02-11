@@ -164,7 +164,7 @@ jobs:
 
   #### x86 LINUX build ####
   build-linux32:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -231,7 +231,7 @@ jobs:
 
   #### x64 macOS build ####
   build-macos64:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
