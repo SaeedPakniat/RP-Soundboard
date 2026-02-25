@@ -27,6 +27,7 @@ public slots:
 	void onStopPlaying();
 	void onPauseSound();
 	void onUnpauseSound();
+	void setRemotePlaybackEnabled(bool enabled);
 
 public:
 	void setActiveServerId(uint64 id);
@@ -43,6 +44,7 @@ private:
 	talk_state_e previousTalkState;
 	talk_state_e defaultTalkState;
 	talk_state_e currentTalkState;
+	bool remotePlaybackEnabled;
 	uint64 activeServerId;
 	uint64 playingServerId;
 

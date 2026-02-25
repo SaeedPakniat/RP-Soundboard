@@ -20,7 +20,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>RP-Soundboard-With-Playlist</string>
+   <string>RP-Soundboard</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qtres.qrc">

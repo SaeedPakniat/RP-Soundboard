@@ -1,6 +1,6 @@
 // src/main.cpp
 //----------------------------------
-// RP-Soundboard-With-Playlist Source Code
+// RP-Soundboard Source Code
 // Copyright (c) 2015 Marius Graefe
 // All rights reserved
 // Contact: rp_soundboard@mgraefe.de
@@ -81,6 +81,8 @@ void ModelObserver_Prog::notify(ConfigModel &model, ConfigModel::notifications_e
 		break;
 	case ConfigModel::NOTIFY_SET_PLAYBACK_REMOTE:
 		sampler->setRemotePlayback(model.getPlaybackRemote());
+		if (tsMgr)
+			tsMgr->setRemotePlaybackEnabled(model.getPlaybackRemote());
 		break;
 	case ConfigModel::NOTIFY_SET_MUTE_MYSELF_DURING_PB:
 		sampler->setMuteMyself(model.getMuteMyselfDuringPb());
@@ -144,7 +146,7 @@ void sb_enableInterface(bool enabled)
 			notConnectedBubble->setBubbleStyle(false);
 			notConnectedBubble->setClosable(false);
 			notConnectedBubble->setText("You are not connected to a server.\n"
-				"RP-Soundboard-With-Playlist is disabled until you are connected properly.");
+				"RP-Soundboard is disabled until you are connected properly.");
 			notConnectedBubble->attachTo(configDialog);
 			if (configDialog->isVisible())
 				notConnectedBubble->show();
