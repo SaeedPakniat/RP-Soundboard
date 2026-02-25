@@ -3,6 +3,7 @@
 #include "TalkStateManager.h"
 #include "ts3log.h"
 #include "main.h"
+#include "samples.h"
 #include <QMetaEnum>
 
 //---------------------------------------------------------------
@@ -31,6 +32,7 @@ TalkStateManager::TalkStateManager() :
 	previousTalkState(TS_INVALID),
 	defaultTalkState(TS_INVALID),
 	currentTalkState(TS_INVALID),
+	remotePlaybackEnabled(true),
 	activeServerId(0),
 	playingServerId(0)
 {
@@ -54,6 +56,8 @@ void TalkStateManager::onStartPlaying(bool preview, QString filename)
 {
 	if (!preview)
 	{
+		if (!remotePlaybackEnabled)
+			return;
 		playingServerId = activeServerId;
 		setPlayTransMode();
 	}
@@ -83,7 +87,31 @@ void TalkStateManager::onPauseSound()
 //---------------------------------------------------------------
 void TalkStateManager::onUnpauseSound()
 {
+	if (!remotePlaybackEnabled)
+		return;
 	setPlayTransMode();
+}
+
+
+//---------------------------------------------------------------
+// Purpose: 
+//---------------------------------------------------------------
+void TalkStateManager::setRemotePlaybackEnabled(bool enabled)
+{
+	remotePlaybackEnabled = enabled;
+	if (!enabled)
+	{
+		setTalkTransMode();
+		return;
+	}
+
+	Sampler *sampler = sb_getSampler();
+	if (sampler)
+	{
+		Sampler::state_e st = sampler->getState();
+		if (st == Sampler::ePLAYING || st == Sampler::ePAUSED)
+			setPlayTransMode();
+	}
 }
 
 

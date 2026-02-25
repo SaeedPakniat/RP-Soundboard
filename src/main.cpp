@@ -81,6 +81,8 @@ void ModelObserver_Prog::notify(ConfigModel &model, ConfigModel::notifications_e
 		break;
 	case ConfigModel::NOTIFY_SET_PLAYBACK_REMOTE:
 		sampler->setRemotePlayback(model.getPlaybackRemote());
+		if (tsMgr)
+			tsMgr->setRemotePlaybackEnabled(model.getPlaybackRemote());
 		break;
 	case ConfigModel::NOTIFY_SET_MUTE_MYSELF_DURING_PB:
 		sampler->setMuteMyself(model.getMuteMyselfDuringPb());
